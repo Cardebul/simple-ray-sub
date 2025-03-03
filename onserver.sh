@@ -131,7 +131,6 @@ server {
 EOL
 else 
     echo inmain
-    sudo apt-get install -y docker-compose
     cp -r /tmp/docker_pac $home_dir/www/app/docker_pac
     cd $home_dir/www/app/docker_pac
     sudo docker-compose down && sudo docker-compose up --build -d
