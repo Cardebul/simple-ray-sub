@@ -11,6 +11,5 @@ make the subscription as simple as possible, using best practices from the offic
 
 
 ### Android
-![image](https://github.com/user-attachments/assets/f5365a90-e9fa-438b-ba90-f6091aec8d1b)
-![image](https://github.com/user-attachments/assets/93c3c653-2dd1-4ae8-8601-f65cc7ca8cd5)
-
+<img src="https://github.com/user-attachments/assets/f5365a90-e9fa-438b-ba90-f6091aec8d1b" width="33%">
+<img src="https://github.com/user-attachments/assets/93c3c653-2dd1-4ae8-8601-f65cc7ca8cd5" width="33%">
