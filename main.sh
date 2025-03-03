@@ -37,7 +37,7 @@ sshpass -p "$PASW" ssh -o StrictHostKeyChecking=no -p $PORT "$USER@$HOST" "exit"
 sshpass -p "$PASW" scp -P $PORT index2.html "$USER@$HOST:/tmp/index.html"
 if [ $ISMAIN -eq 1 ]; then
     sshpass -p "$PASW" scp -r -P $PORT docker_pac "$USER@$HOST:/tmp/docker_pac"
-    sshpass -p "$PASW" ssh -p $PORT "$USER@$HOST" "apt-get install -y docker-compose"
+    sshpass -p "$PASW" ssh -p $PORT "$USER@$HOST" "apt-get install -y docker-compose sudo nginx"
 fi
 
 sshpass -p "$PASW" scp -P $PORT onserver.sh "$USER@$HOST:/tmp/onserver.sh"
@@ -45,8 +45,7 @@ sshpass -p "$PASW" scp -P $PORT onserver.sh "$USER@$HOST:/tmp/onserver.sh"
 sshpass -p "$PASW" ssh -p $PORT "$USER@$HOST" "
     useradd -m -s /bin/bash $USERNAME && \
     echo '$USERNAME:$PASW' | chpasswd && \
-    echo '$USERNAME ALL=(ALL) NOPASSWD: ALL' | EDITOR='tee -a' visudo && \
-    apt-get update && apt-get install -y sudo nginx
+    echo '$USERNAME ALL=(ALL) NOPASSWD: ALL' | EDITOR='tee -a' visudo
 " "exit"
 
     

@@ -58,11 +58,11 @@ if __name__ == '__main__':
             name = int(random.random() * 100 // 1)
 
             cmd = f"./main.sh {host} {port} '{password}' {domain} {int(bool(main))} {passphrase_for_rsa} {server_user} {uid}"
+            f.write(f'VLESS{name}=vless://{uid}@{domain}:443?security=tls&alpn=http%2F1.1&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-vision#{name}\n')
             if main:
                 main_cmd = cmd
                 continue
             f_commands.append(cmd)
-            f.write(f'VLESS{name}=vless://{uid}@{domain}:443?security=tls&alpn=http%2F1.1&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-vision#{name}\n')
 
     cmnds = [subprocess.Popen(cmd, shell=True) for cmd in f_commands]
     ends = [p.wait() for p in cmnds]
