@@ -37,7 +37,7 @@ sshpass -p "$PASW" ssh -o StrictHostKeyChecking=no -p $PORT "$USER@$HOST" "exit"
 sshpass -p "$PASW" scp -P $PORT index2.html "$USER@$HOST:/tmp/index.html"
 if [ $ISMAIN -eq 1 ]; then
     sshpass -p "$PASW" scp -r -P $PORT docker_pac "$USER@$HOST:/tmp/docker_pac"
-    sshpass -p "$PASW" ssh -p $PORT "$USER@$HOST" "apt-get install -y docker-compose" "exit"
+    sshpass -p "$PASW" ssh -p $PORT "$USER@$HOST" "apt-get install -y docker-compose"
 fi
 
 sshpass -p "$PASW" scp -P $PORT onserver.sh "$USER@$HOST:/tmp/onserver.sh"
