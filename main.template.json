@@ -1,0 +1,18 @@
+{
+    "passphrase_for_rsa": null,
+    "server_user": null,
+    "main": {
+        "host": null,
+        "port": 22,
+        "password": null,
+        "domain": null,
+        "sub": [
+            {
+                "host": null,
+                "port": 22,
+                "password": null,
+                "domain": null 
+            }
+        ]
+    }
+}

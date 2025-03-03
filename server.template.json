@@ -1,0 +1,82 @@
+{
+    "log": {
+      "loglevel": "warning",
+      "access": "/home/vpsadmin/xray_log/access.log",
+      "error": "/home/vpsadmin/xray_log/error.log"
+    },
+    "dns": {
+      "servers": [
+        "https+local://1.1.1.1/dns-query",
+        "localhost"
+      ]
+    },
+    "routing": {
+      "domainStrategy": "IPIfNonMatch",
+      "rules": [
+        {
+          "type": "field",
+          "ip": [
+            "geoip:private"
+          ],
+          "outboundTag": "block"
+        },
+        {
+          "type": "field",
+          "ip": ["geoip:cn"],
+          "outboundTag": "block"
+        },
+        {
+          "type": "field",
+          "domain": [
+            "geosite:category-ads-all"
+          ],
+          "outboundTag": "block"
+        }
+      ]
+    },
+    "inbounds": [
+      {
+        "port": 443,
+        "protocol": "vless",
+        "settings": {
+          "clients": [
+            {
+              "id": "",
+              "flow": "xtls-rprx-vision",
+              "level": 0,
+              "email": "vpsadmin@yourdomain.com"
+            }
+          ],
+          "decryption": "none",
+          "fallbacks": [
+            {
+              "dest": 80
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "tcp",
+          "security": "tls",
+          "tlsSettings": {
+            "alpn": "http/1.1",
+            "certificates": [
+              {
+                "certificateFile": "/home/vpsadmin/xray_cert/xray.crt",
+                "keyFile": "/home/vpsadmin/xray_cert/xray.key"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "outbounds": [
+      {
+        "tag": "direct",
+        "protocol": "freedom"
+      },
+      {
+        "tag": "block",
+        "protocol": "blackhole"
+      }
+    ]
+  }
