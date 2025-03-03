@@ -16,7 +16,7 @@ if ! arch_checker; then
 fi
 
 if [ "$#" -lt 1 ]; then
-    echo "usage: $0 host port passw domain main passphrase_for_rsa server_user"
+    echo "usage: $0 host port passw domain main passphrase_for_rsa server_user uid"
     exit 1
 fi
 
@@ -30,8 +30,8 @@ USERNAME=$7
 RAYUID=$8
 USER="root"
 
-echo "usage: $0 host port passw domain main passphrase_for_rsa server_user"
-echo $HOST $PORT $PASW $DOMAIN $ISMAIN $PASSPHRASE $USERNAME
+echo "usage: $0 host port passw domain main passphrase_for_rsa server_user uid"
+echo $HOST $PORT $PASW $DOMAIN $ISMAIN $PASSPHRASE $USERNAME $RAYUID
 
 sshpass -p "$PASW" ssh -o StrictHostKeyChecking=no -p $PORT "$USER@$HOST" "exit"
 sshpass -p "$PASW" scp -P $PORT index2.html "$USER@$HOST:/tmp/index.html"
