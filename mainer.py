@@ -44,6 +44,7 @@ if __name__ == '__main__':
     if not validate_main_template(data): exit(1)
     # ./main.sh 89.169.36.143 22 '9UhCjPT7wM!T' kz.gekkkk.cc 0 223 bolik
     f_commands = []
+    main_cmd = ''
     passphrase_for_rsa = data.get('passphrase_for_rsa')
     server_user = data.get('server_user')
     with open('docker_pac/.env', 'w') as f:
@@ -56,9 +57,16 @@ if __name__ == '__main__':
             uid = str(uuid.uuid4())
             name = int(random.random() * 100 // 1)
 
-            f_commands.append(f"./main.sh {host} {port} '{password}' {domain} {int(bool(main))} {passphrase_for_rsa} {server_user} {uid}")
-            print(domain)
+            cmd = f"./main.sh {host} {port} '{password}' {domain} {int(bool(main))} {passphrase_for_rsa} {server_user} {uid}"
+            if main:
+                main_cmd = cmd
+                continue
+            f_commands.append(cmd)
             f.write(f'VLESS{name}=vless://{uid}@{domain}:443?security=tls&alpn=http%2F1.1&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-vision#{name}\n')
 
     cmnds = [subprocess.Popen(cmd, shell=True) for cmd in f_commands]
     ends = [p.wait() for p in cmnds]
+
+    print('mainserv script ex')
+    m = subprocess.Popen(main_cmd, shell=True)
+    m.wait()
